@@ -1,0 +1,82 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://ui/job_menu.gd" id="1_job_menu"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_Sand"]
+bg_color = Color(0.92, 0.82, 0.65, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.75, 0.65, 0.45, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+expand_margin_left = 10.0
+expand_margin_top = 10.0
+expand_margin_right = 10.0
+expand_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_Button"]
+bg_color = Color(0.8, 0.7, 0.5, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.6, 0.5, 0.3, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="JobMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_job_menu")
+
+[node name="Panel" type="PanelContainer" parent="."]
+layout_mode = 1
+offset_right = 150.0
+offset_bottom = 120.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_Sand")
+
+[node name="VBox" type="VBoxContainer" parent="Panel"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="Panel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.3, 0.2, 0.1, 1)
+text = "Gloop Job"
+horizontal_alignment = 1
+
+[node name="IdleButton" type="Button" parent="Panel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.2, 0.15, 0.1, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_Button")
+text = "Idle (Orbit)"
+
+[node name="GatherButton" type="Button" parent="Panel/VBox"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0.2, 0.15, 0.1, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_Button")
+text = "Gather Sand"
+
+[node name="ExpandButton" type="Button" parent="Panel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.2, 0.15, 0.1, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_Button")
+text = "Expand Island"
+
+[node name="CloseButton" type="Button" parent="Panel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.2, 0.15, 0.1, 1)
+flat = true
+text = "Close"
+
+[connection signal="pressed" from="Panel/VBox/IdleButton" to="." method="_on_idle_button_pressed"]
+[connection signal="pressed" from="Panel/VBox/GatherButton" to="." method="_on_gather_button_pressed"]
+[connection signal="pressed" from="Panel/VBox/CloseButton" to="." method="_on_close_button_pressed"]
+[connection signal="pressed" from="Panel/VBox/ExpandButton" to="." method="_on_expand_button_pressed"]

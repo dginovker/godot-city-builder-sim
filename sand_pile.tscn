@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://b8v6k8u4m4q2t"]
+
+[ext_resource type="Script" uid="uid://b7r1xlc3tf7v1" path="res://sand_pile.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://sqqwpe5dryti" path="res://assets/generated/sand_texture_frame_0.png" id="2_sand"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_Mound"]
+bottom_radius = 3.0
+height = 3.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_SandPile"]
+albedo_color = Color(0.85, 0.75, 0.55, 1)
+albedo_texture = ExtResource("2_sand")
+uv1_scale = Vector3(0.5, 0.5, 0.5)
+uv1_triplanar = true
+
+[sub_resource type="CylinderShape3D" id="CylinderShape_Collision"]
+height = 3.0
+radius = 3.0
+
+[node name="SandPile" type="StaticBody3D" unique_id=1248876557 groups=["resources"]]
+script = ExtResource("1_script")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=2130923629]
+mesh = SubResource("CylinderMesh_Mound")
+surface_material_override/0 = SubResource("StandardMaterial3D_SandPile")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1278539992]
+shape = SubResource("CylinderShape_Collision")

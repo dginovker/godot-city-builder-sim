@@ -1,0 +1,61 @@
+[gd_scene load_steps=8 format=3 uid="uid://cjf8kkifh4240"]
+
+[ext_resource type="Script" path="res://sand_gloop.gd" id="1_script"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_Body"]
+radius = 3.0
+height = 4.8
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_Sand"]
+albedo_color = Color(0.92, 0.82, 0.65, 1)
+
+[sub_resource type="TorusMesh" id="TorusMesh_Bandana"]
+inner_radius = 2.2
+outer_radius = 2.8
+ring_segments = 16
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_Red"]
+albedo_color = Color(0.8, 0.1, 0.1, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_Eye"]
+radius = 0.5
+height = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_Black"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_collision"]
+radius = 3.0
+
+[node name="SandGloop" type="CharacterBody3D"]
+script = ExtResource("1_script")
+orbit_radius = 16.0
+orbit_speed = 0.5
+
+[node name="Model" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4, 0)
+
+[node name="Body" type="MeshInstance3D" parent="Model"]
+mesh = SubResource("SphereMesh_Body")
+surface_material_override/0 = SubResource("StandardMaterial3D_Sand")
+
+[node name="Bandana" type="MeshInstance3D" parent="Model"]
+transform = Transform3D(1, 0, 0, 0, 0.931584, -0.363528, 0, 0.363528, 0.931584, 0, 1.0, 0.6)
+mesh = SubResource("TorusMesh_Bandana")
+surface_material_override/0 = SubResource("StandardMaterial3D_Red")
+
+[node name="EyeL" type="MeshInstance3D" parent="Model"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2, 1.2, -2.4)
+mesh = SubResource("SphereMesh_Eye")
+surface_material_override/0 = SubResource("StandardMaterial3D_Black")
+
+[node name="EyeR" type="MeshInstance3D" parent="Model"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2, 1.2, -2.4)
+mesh = SubResource("SphereMesh_Eye")
+surface_material_override/0 = SubResource("StandardMaterial3D_Black")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4, 0)
+shape = SubResource("SphereShape3D_collision")

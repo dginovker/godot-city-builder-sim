@@ -1,0 +1,66 @@
+[gd_scene format=3 uid="uid://vlmcn6yocmgh"]
+
+[ext_resource type="Script" uid="uid://bqr0gnhfl6gba" path="res://ui/hud.gd" id="1_hud"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_HUD"]
+bg_color = Color(0.92, 0.82, 0.65, 0.8)
+corner_radius_bottom_right = 10
+
+[node name="HUD" type="Control" unique_id=1993531861]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_hud")
+
+[node name="InventoryPanel" type="PanelContainer" parent="." unique_id=974176078]
+layout_mode = 0
+offset_right = 110.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_HUD")
+
+[node name="VBox" type="VBoxContainer" parent="InventoryPanel" unique_id=1878144745]
+layout_mode = 2
+
+[node name="HBox" type="HBoxContainer" parent="InventoryPanel/VBox" unique_id=1347709030]
+layout_mode = 2
+
+[node name="Spacer" type="Control" parent="InventoryPanel/VBox/HBox" unique_id=643076216]
+layout_mode = 2
+
+[node name="Icon" type="Label" parent="InventoryPanel/VBox/HBox" unique_id=277828054]
+layout_mode = 2
+text = "⏳"
+
+[node name="Label" type="Label" parent="InventoryPanel/VBox/HBox" unique_id=807531862]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.3, 0.2, 0.1, 1)
+text = "Sand: "
+
+[node name="Count" type="Label" parent="InventoryPanel/VBox/HBox" unique_id=433012832]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.3, 0.2, 0.1, 1)
+text = "0"
+
+[node name="ExpHBox" type="HBoxContainer" parent="InventoryPanel/VBox" unique_id=926949341]
+layout_mode = 2
+
+[node name="Spacer" type="Control" parent="InventoryPanel/VBox/ExpHBox" unique_id=735542715]
+layout_mode = 2
+
+[node name="ExpLabel" type="Label" parent="InventoryPanel/VBox/ExpHBox" unique_id=822945488]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.3, 0.2, 0.1, 1)
+theme_override_font_sizes/font_size = 12
+text = "Expand: "
+
+[node name="ExpCount" type="Label" parent="InventoryPanel/VBox/ExpHBox" unique_id=22712554]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.3, 0.2, 0.1, 1)
+theme_override_font_sizes/font_size = 12
+text = "0%"

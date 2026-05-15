@@ -1,0 +1,175 @@
+[gd_scene format=3 uid="uid://bt6pnctkeihw1"]
+
+[ext_resource type="Script" uid="uid://cjmibihpj7a4v" path="res://camera_controller.gd" id="1_controller"]
+[ext_resource type="Texture2D" uid="uid://sqqwpe5dryti" path="res://assets/generated/sand_texture_frame_0.png" id="2_sand"]
+[ext_resource type="PackedScene" uid="uid://cjf8kkifh4240" path="res://sand_gloop.tscn" id="4_gloop"]
+[ext_resource type="PackedScene" uid="uid://b8v6k8u4m4q2t" path="res://sand_pile.tscn" id="5_sand_pile"]
+[ext_resource type="PackedScene" path="res://expansion_site.tscn" id="6_expand"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1"]
+sky_top_color = Color(0.21568628, 0.7529412, 0.85490197, 1)
+sky_horizon_color = Color(0.93326974, 0.5827322, 0.68286383, 1)
+sky_curve = 0.25226882
+ground_bottom_color = Color(0.26217306, 0.8750462, 0.8392194, 1)
+ground_horizon_color = Color(0.93333334, 0.58431375, 0.68235296, 1)
+ground_curve = 0.84852767
+ground_energy_multiplier = 0.99
+
+[sub_resource type="Sky" id="Sky_1"]
+sky_material = SubResource("ProceduralSkyMaterial_1")
+radiance_size = 1
+
+[sub_resource type="Environment" id="Environment_1"]
+background_mode = 2
+sky = SubResource("Sky_1")
+tonemap_mode = 2
+tonemap_white = 6.0
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_Island"]
+albedo_color = Color(0.9, 0.8, 0.6, 1)
+albedo_texture = ExtResource("2_sand")
+uv1_scale = Vector3(10, 10, 10)
+uv1_triplanar = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_Island"]
+material = SubResource("StandardMaterial3D_Island")
+size = Vector3(40, 2, 40)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_Stone"]
+albedo_color = Color(0.6, 0.6, 0.6, 1)
+roughness = 0.8
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_Base"]
+material = SubResource("StandardMaterial3D_Stone")
+top_radius = 5.04
+bottom_radius = 5.04
+height = 1.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_Stem"]
+material = SubResource("StandardMaterial3D_Stone")
+top_radius = 1.0
+bottom_radius = 1.2
+height = 4.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_Bowl"]
+material = SubResource("StandardMaterial3D_Stone")
+top_radius = 4.0
+bottom_radius = 3.0
+height = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_Water"]
+transparency = 1
+albedo_color = Color(0.2, 0.6, 1, 0.6)
+roughness = 0.05
+refraction_enabled = true
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_Water"]
+material = SubResource("StandardMaterial3D_Water")
+top_radius = 3.8
+bottom_radius = 3.8
+height = 0.2
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_FountainTop"]
+material = SubResource("StandardMaterial3D_Stone")
+top_radius = 0.4
+bottom_radius = 0.8
+height = 1.2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_Droplet"]
+transparency = 1
+albedo_color = Color(0.6, 0.8, 1, 0.5)
+
+[sub_resource type="SphereMesh" id="SphereMesh_Droplet"]
+material = SubResource("StandardMaterial3D_Droplet")
+radius = 0.1
+height = 0.2
+
+[sub_resource type="Curve" id="Curve_Splash"]
+_data = [Vector2(0, 0.2), 0.0, 5.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -5.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_Pillar"]
+material = SubResource("StandardMaterial3D_Stone")
+top_radius = 0.4
+bottom_radius = 0.4
+height = 3.2
+
+[node name="Main" type="Node3D" unique_id=1290112915]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=383092750]
+environment = SubResource("Environment_1")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=117497200]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Island" type="MeshInstance3D" parent="." unique_id=1534570429]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+mesh = SubResource("BoxMesh_Island")
+
+[node name="Fountain" type="Node3D" parent="." unique_id=1419348367 groups=["fountain"]]
+
+[node name="Base" type="MeshInstance3D" parent="Fountain" unique_id=437084867]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("CylinderMesh_Base")
+
+[node name="Stem" type="MeshInstance3D" parent="Fountain" unique_id=254507827]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+mesh = SubResource("CylinderMesh_Stem")
+
+[node name="Bowl" type="MeshInstance3D" parent="Fountain" unique_id=1107259393]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.5, 0)
+mesh = SubResource("CylinderMesh_Bowl")
+
+[node name="Water" type="MeshInstance3D" parent="Fountain/Bowl" unique_id=1407785106]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.414, 0)
+mesh = SubResource("CylinderMesh_Water")
+
+[node name="Top" type="MeshInstance3D" parent="Fountain" unique_id=1496779850]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.6, 0)
+mesh = SubResource("CylinderMesh_FountainTop")
+
+[node name="CPUParticles3D" type="CPUParticles3D" parent="Fountain/Top" unique_id=420502824]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+amount = 40
+lifetime = 1.2
+mesh = SubResource("SphereMesh_Droplet")
+direction = Vector3(0, 1, 0)
+spread = 30.0
+initial_velocity_min = 4.0
+initial_velocity_max = 6.0
+scale_amount_curve = SubResource("Curve_Splash")
+
+[node name="Pillar1" type="MeshInstance3D" parent="Fountain" unique_id=655649919]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4, 2.1, 2.4)
+mesh = SubResource("CylinderMesh_Pillar")
+
+[node name="Pillar2" type="MeshInstance3D" parent="Fountain" unique_id=1285729782]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4, 2.1, 2.4)
+mesh = SubResource("CylinderMesh_Pillar")
+
+[node name="Pillar3" type="MeshInstance3D" parent="Fountain" unique_id=1731866042]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4, 2.1, -2.4)
+mesh = SubResource("CylinderMesh_Pillar")
+
+[node name="Pillar4" type="MeshInstance3D" parent="Fountain" unique_id=725520710]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4, 2.1, -2.4)
+mesh = SubResource("CylinderMesh_Pillar")
+
+[node name="CameraPivot" type="Node3D" parent="." unique_id=1975980432]
+script = ExtResource("1_controller")
+
+[node name="SpringArm3D" type="SpringArm3D" parent="CameraPivot" unique_id=1450126140]
+spring_length = 40.0
+
+[node name="Camera3D" type="Camera3D" parent="CameraPivot/SpringArm3D" unique_id=1939050498]
+
+[node name="SandGloop" parent="." unique_id=1699231363 instance=ExtResource("4_gloop")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 0)
+
+[node name="SandPile" parent="." unique_id=194144716 instance=ExtResource("5_sand_pile")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -16)
+
+[node name="ExpansionSite" parent="." instance=ExtResource("6_expand")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40, 0, 0)
