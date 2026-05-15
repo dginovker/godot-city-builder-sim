@@ -171,5 +171,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 0)
 [node name="SandPile" parent="." unique_id=194144716 instance=ExtResource("5_sand_pile")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -16)
 
-[node name="ExpansionSite" parent="." instance=ExtResource("6_expand")]
+[node name="ExpansionSite" parent="." unique_id=1702749119 instance=ExtResource("6_expand")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40, 0, 0)
